@@ -1,3 +1,95 @@
-.container{
-    background-color: black;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #111827;
+}
+
+.container {
+  width: 380px;
+  max-width: 90%;
+  padding: 24px;
+
+  background: #1f2937;
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+.display {
+  min-height: 96px;
+  margin-bottom: 20px;
+  padding: 24px;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  background: #e5e7eb;
+  color: #111827;
+  border-radius: 16px;
+
+  font-size: 42px;
+  font-weight: 700;
+  overflow: hidden;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+button {
+  height: 72px;
+
+  border: none;
+  border-radius: 16px;
+
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
+
+  background: #374151;
+  color: white;
+}
+
+button:hover {
+  background: #4b5563;
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+.operator {
+  background: #f59e0b;
+}
+
+.operator:hover {
+  background: #d97706;
+}
+
+.equals {
+  background: #10b981;
+}
+
+.equals:hover {
+  background: #059669;
+}
+
+.clear {
+  background: #ef4444;
+}
+
+.clear:hover {
+  background: #dc2626;
 }
