@@ -31,7 +31,7 @@ function operate(operator, n1, n2) {
         case "*":
             return multiply(n1, n2);
         case "/":
-            return divide(n1, n2);
+            return divide(n1, n2).toFixed(9);
     }
 }
 
