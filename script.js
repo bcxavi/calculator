@@ -1,6 +1,7 @@
 let firstNumber = "";
 let secondNumber = "";
 let currentOperator = "";
+let result = "";
 const display = document.querySelector(".display");
 const buttons = document.querySelectorAll("button");
 
@@ -35,14 +36,33 @@ function operate(operator, n1, n2) {
 }
 
 function updateDisplay() {
-    display.textContent = firstNumber;
+    display.textContent = firstNumber + currentOperator + secondNumber;
 }
 
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
+
         if (button.classList.contains("number")) {
-            firstNumber += button.textContent;
+
+            if (currentOperator === "") {
+                firstNumber += button.textContent;
+            } else {
+                secondNumber += button.textContent;
+            }
+
             updateDisplay();
+
+        } else if (button.classList.contains("operator")) {
+
+            currentOperator = button.dataset.operator;
+            updateDisplay();
+
+        } else if (button.classList.contains("equals")) {
+
+            result = operate(currentOperator, Number(firstNumber), Number(secondNumber));
+            display.textContent = result;
+
         }
+
     });
 });
