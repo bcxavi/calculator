@@ -8,12 +8,12 @@ body {
   min-height: 100vh;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
   background: #111827;
 }
-
 .container {
   width: 380px;
   max-width: 90%;
@@ -92,4 +92,49 @@ button:active {
 
 .clear:hover {
   background: #dc2626;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  height: 56px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+
+  color: #e5e7eb;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.footer p {
+  margin: 0;
+}
+
+.footer a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #e5e7eb;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #10b981;
+}
+
+.fa-github {
+  font-size: 20px;
+  transition: transform 0.5s ease, color 0.3s ease;
+}
+
+.fa-github:hover {
+  transform: rotate(360deg);
+  color: #10b981;
 }
