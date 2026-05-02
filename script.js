@@ -1,6 +1,9 @@
 let firstNumber = "";
 let secondNumber = "";
 let currentOperator = "";
+const display = document.querySelector(".display");
+const buttons = document.querySelectorAll("button");
+
 
 function add(n1, n2) {
     return n1 + n2;
@@ -30,3 +33,16 @@ function operate(operator, n1, n2) {
             return divide(n1, n2);
     }
 }
+
+function updateDisplay() {
+    display.textContent = firstNumber;
+}
+
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        if (button.classList.contains("number")) {
+            firstNumber += button.textContent;
+            updateDisplay();
+        }
+    });
+});
