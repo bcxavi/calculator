@@ -1,7 +1,6 @@
 let firstNumber = "";
 let secondNumber = "";
 let currentOperator = "";
-let result = "";
 let shouldResetDisplay = false;
 const display = document.querySelector(".display");
 const buttons = document.querySelectorAll("button");
@@ -54,70 +53,91 @@ function formatResult(number) {
         .slice(0, 12);
 }
 
+function clearCalculator() {
+    display.textContent = "0";
+    firstNumber = "";
+    secondNumber = "";
+    currentOperator = "";
+    shouldResetDisplay = false;
+}
+
+function handleNumber(number) {
+    if (shouldResetDisplay) {
+        firstNumber = "";
+        secondNumber = "";
+        currentOperator = "";
+        shouldResetDisplay = false;
+    }
+
+    if (currentOperator === "") {
+        firstNumber += number;
+    } else {
+        secondNumber += number;
+    }
+
+    updateDisplay();
+}
+
+function handleOperator(operator) {
+    if (firstNumber === "") {
+        return;
+    }
+
+    if (secondNumber !== "") {
+        const calculation = operate(
+            currentOperator,
+            Number(firstNumber),
+            Number(secondNumber)
+        );
+
+        firstNumber = formatResult(calculation);
+        secondNumber = "";
+    }
+
+    currentOperator = operator;
+    shouldResetDisplay = false;
+    updateDisplay();
+}
+
+function handleEquals() {
+    if (firstNumber === "" || currentOperator === "" || secondNumber === "") {
+        return;
+    }
+
+    const calculation = operate(
+        currentOperator,
+        Number(firstNumber),
+        Number(secondNumber)
+    );
+
+    const result = formatResult(calculation);
+
+    display.textContent = result;
+    firstNumber = result;
+    secondNumber = "";
+    currentOperator = "";
+    shouldResetDisplay = true;
+}
+
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
         if (button.classList.contains("clear")) {
-            display.textContent = "0";
-            firstNumber = "";
-            secondNumber = "";
-            currentOperator = "";
-            result = "";
-            shouldResetDisplay = false;
+            clearCalculator();
             return;
         }
 
         if (button.classList.contains("number")) {
-            if (shouldResetDisplay) {
-                firstNumber = "";
-                secondNumber = "";
-                currentOperator = "";
-                shouldResetDisplay = false;
-            }
-
-            if (currentOperator === "") {
-                firstNumber += button.textContent;
-            } else {
-                secondNumber += button.textContent;
-            }
-
-            updateDisplay();
+            handleNumber(button.textContent);
             return;
         }
 
         if (button.classList.contains("operator")) {
-            if (firstNumber === "") {
-                return;
-            }
-
-            if (secondNumber !== "") {
-                result = formatResult(
-                    operate(currentOperator, Number(firstNumber), Number(secondNumber))
-                );
-
-                firstNumber = result;
-                secondNumber = "";
-            }
-
-            currentOperator = button.dataset.operator;
-            shouldResetDisplay = false;
-            updateDisplay();
+            handleOperator(button.dataset.operator);
             return;
         }
 
         if (button.classList.contains("equals")) {
-            if (firstNumber === "" || currentOperator === "" || secondNumber === "") {
-                return;
-            }
-
-            result = formatResult(
-                operate(currentOperator, Number(firstNumber), Number(secondNumber))
-            );
-
-            display.textContent = result;
-            firstNumber = result;
-            secondNumber = "";
-            currentOperator = "";
-            shouldResetDisplay = true;
+            handleEquals();
         }
     });
 });
