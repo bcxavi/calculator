@@ -42,6 +42,14 @@ function updateDisplay() {
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
 
+        if (button.classList.contains("clear")) {
+            display.textContent = 0;
+            firstNumber = "";
+            secondNumber = "";
+            currentOperator = "";
+            result = "";
+            return;
+        }
         if (button.classList.contains("number")) {
 
             if (currentOperator === "") {
@@ -54,14 +62,24 @@ buttons.forEach((button) => {
 
         } else if (button.classList.contains("operator")) {
 
+            if (firstNumber === "") {
+                return;
+            }
+
             currentOperator = button.dataset.operator;
             updateDisplay();
 
         } else if (button.classList.contains("equals")) {
 
+            if (firstNumber === "" || currentOperator === "" || secondNumber === "") {
+                return;
+            }
+
             result = operate(currentOperator, Number(firstNumber), Number(secondNumber));
             display.textContent = result;
-
+            firstNumber = result.toString();
+            secondNumber = "";
+            currentOperator = "";
         }
 
     });
